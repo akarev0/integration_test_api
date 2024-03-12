@@ -1,11 +1,11 @@
 import pytest
+import responses
 
 from pymongo import MongoClient
 from pymongo.database import Database
 from fastapi.testclient import TestClient
 
-
-from db.db import get_db
+from db import get_db
 from main import app
 
 
@@ -37,6 +37,13 @@ def test_client(database):
         yield client
         reset_database(database)
         app.dependency_overrides = {}
+
+
+@pytest.fixture(scope="session", autouse=True)
+def mocked_requests() -> responses.RequestsMock:
+    """Prevents inner requests reach external resources."""
+    with responses.RequestsMock() as req:
+        yield req
 
 
 @pytest.fixture()

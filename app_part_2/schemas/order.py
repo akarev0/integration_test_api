@@ -1,7 +1,4 @@
-from typing import Dict, List
-
-
-def order_entity(item: Dict) -> Dict:
+def order_entity(item: dict) -> dict:
     return {
         "id": str(item["_id"]),
         "external_id": item["id"],
@@ -11,5 +8,5 @@ def order_entity(item: Dict) -> Dict:
     }
 
 
-def orders_entity(entity) -> List[Dict]:
+def orders_entity(entity) -> list[dict]:
     return [order_entity(i) for i in entity]

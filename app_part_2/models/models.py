@@ -1,10 +1,6 @@
 from pydantic import BaseModel
 
-
-class OrderStatus:
-    NEW: str = "NEW"
-    PROCESSING: str = "PROCESSING"
-    DONE: str = "DONE"
+from enums import OrderStatus
 
 
 class Item(BaseModel):
@@ -16,6 +12,6 @@ class Item(BaseModel):
 
 class Order(BaseModel):
     id: str
-    status: str
+    status: OrderStatus
     items: list[Item]
     total_price: float
